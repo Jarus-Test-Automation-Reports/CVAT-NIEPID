@@ -215,7 +215,10 @@ namespace CAT.AID.Web.Controllers
             var file = await _db.CandidateAttachments.FindAsync(id);
             if (file == null) return NotFound();
 
-            var fullPath = Path.Combine(UploadRoot, file.FilePath);
+var fullPath = Path.Combine(
+    _env.WebRootPath,
+    file.FilePath.TrimStart('/')
+);
             if (System.IO.File.Exists(fullPath))
                 System.IO.File.Delete(fullPath);
 
@@ -358,7 +361,7 @@ namespace CAT.AID.Web.Controllers
                 {
                     CandidateId = candidateId,
                     FileName = file.FileName,
-                    FilePath = name,
+FilePath = "/uploads/candidates/" + name,
                     FileType = file.ContentType,
                     UploadedAt = DateTime.UtcNow
                 });
@@ -368,4 +371,5 @@ namespace CAT.AID.Web.Controllers
         }
     }
 }
+
 
