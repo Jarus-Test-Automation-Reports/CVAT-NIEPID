@@ -129,6 +129,60 @@
                     .header-logo:hover {
                         transform: scale(1.1) rotate(2deg);
                     }
+
+/* ===============================
+   🎯 LOGIN INSIDE POSTER (FIXED AREA)
+   =============================== */
+
+.login-page-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.poster-container {
+    position: relative;              /* 🔥 anchor */
+    width: 420px;                    /* same as poster width */
+}
+
+.poster-image {
+    width: 100%;
+    border-radius: 14px;
+    display: block;
+}
+
+/* 🔐 LOGIN FORM – EXACT BOX */
+.poster-login-box {
+    position: absolute;
+
+    /* 👇 THESE VALUES MATCH YOUR MARKED SQUARE */
+    top: 18%;        /* vertical position under NIEPID logo */
+    right: 6%;       /* aligns to right inner area */
+    width: 42%;      /* square width */
+
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+
+    padding: 16px;
+    border-radius: 10px;
+
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+}
+
+.poster-login-box input {
+    font-size: 14px;
+    padding: 8px;
+}
+
+/* 📱 MOBILE: move form BELOW image */
+@media (max-width: 768px) {
+    .poster-login-box {
+        position: static;
+        width: 100%;
+        margin-top: 15px;
+    }
+}
+
     </style>
 </head>
 
@@ -244,6 +298,7 @@
 
 </body>
 </html>
+
 
 
 
