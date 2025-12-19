@@ -122,7 +122,7 @@ namespace CAT.AID.Web.Controllers
         }
 
         // -------------------- 2. GET PERFORM ASSESSMENT --------------------
-        [Authorize(Roles = "Assessor, LeadAssessor, Admin")]
+        [Authorize(Roles = "Assessor, LeadAssessor")]
         public async Task<IActionResult> Perform(int id)
         {
             var a = await _db.Assessments.Include(x => x.Candidate).FirstOrDefaultAsync(x => x.Id == id);
@@ -140,7 +140,7 @@ namespace CAT.AID.Web.Controllers
 
 
         [HttpPost]
-        [Authorize(Roles = "Assessor, Lead")]
+        [Authorize(Roles = "Assessor, LeadAssessor")]
         public async Task<IActionResult> Perform(int id, string actionType)
         {
             var assessment = await _db.Assessments
@@ -650,6 +650,7 @@ namespace CAT.AID.Web.Controllers
         }
     }
 }
+
 
 
 
