@@ -235,99 +235,30 @@
     </div>
 
 
-    <!-- ADD NEW DOCUMENTS -->
-    <div class="card shadow-sm mb-4">
-        <div class="card-header bg-primary text-white fw-bold">
-            Add More Documents
-        </div>
-
-        <div class="card-body">
-
-            <div class="row g-3 mb-3">
-                <div class="col-md-8">
-                    <input type="file" id="docPicker" accept="image/*,.pdf,.doc,.docx,.xls,.xlsx"
-                           class="form-control" />
-                </div>
-
-                <div class="col-md-4">
-                    <button type="button" class="btn btn-secondary w-100"
-                            onclick="addDocument()">
-                        ➕ Add Document
-                    </button>
-                </div>
-            </div>
-
-            <div id="documentsPreview" class="d-flex flex-wrap gap-3"></div>
-
-            <input type="hidden" id="docIndex" value="0" />
-        </div>
+<!-- ADD NEW DOCUMENTS -->
+<div class="card shadow-sm mb-4">
+    <div class="card-header bg-primary text-white fw-bold">
+        Add More Documents
     </div>
 
+    <div class="card-body">
+        <input type="file"
+               name="AttachmentFiles"
+               multiple
+               accept="image/*,.pdf,.doc,.docx,.xls,.xlsx"
+               class="form-control" />
 
+        <small class="text-muted">
+            Hold Ctrl (Windows) or Cmd (Mac) to select multiple files
+        </small>
+    </div>
+</div>
     <button type="submit" class="btn btn-success px-4">Save Changes</button>
     <a href="/Candidates/Index" class="btn btn-secondary">Cancel</a>
 
 </form>
 
-@section Scripts {
-    <script>
-
-        // PHOTO PREVIEW
-        function previewPhoto(e) {
-            document.getElementById("photoPreview").src =
-                URL.createObjectURL(e.target.files[0]);
-        }
-
-        // ADD DOCUMENT
-        function addDocument() {
-            let picker = document.getElementById("docPicker");
-            if (picker.files.length === 0) return;
-
-            let file = picker.files[0];
-            let url = URL.createObjectURL(file);
-
-            let index = parseInt(document.getElementById("docIndex").value);
-
-            // Hidden input to store file
-            let input = document.createElement("input");
-            input.type = "file";
-            input.name = "AttachmentFiles";
-            input.hidden = true;
-            input.files = picker.files;
-
-            let box = document.createElement("div");
-            box.id = "doc_" + index;
-            box.className = "border p-2 text-center";
-            box.style.width = "120px";
-
-            let remove =
-                `<button class='btn btn-sm btn-danger mt-1' onclick='removeDocument(${index})'>X</button>`;
-
-            if (file.type.startsWith("image")) {
-                box.innerHTML = `<img src='${url}'
-                                 style='width:80px;height:80px;object-fit:cover;border-radius:5px;' />
-                                 <div class='small mt-1'>${file.name}</div>${remove}`;
-            } else if (file.type.includes("pdf")) {
-                box.innerHTML = `<img src='/images/pdf-icon.png' style='height:50px;' />
-                                 <div class='small mt-1'>${file.name}</div>${remove}`;
-            } else {
-                box.innerHTML = `<img src='/images/doc-icon.png' style='height:50px;' />
-                                 <div class='small mt-1'>${file.name}</div>${remove}`;
-            }
-
-            box.appendChild(input);
-
-            document.getElementById("documentsPreview").appendChild(box);
-
-            document.getElementById("docIndex").value = index + 1;
-            picker.value = "";
-        }
-
-        function removeDocument(i) {
-            document.getElementById("doc_" + i).remove();
-        }
-
-    </script>
 
     @await Html.PartialAsync("_ValidationScriptsPartial")
 }
+
